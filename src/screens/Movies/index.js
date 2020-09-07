@@ -11,13 +11,13 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
+import constants from '../../data/constants';
+
 import { MoviesSelelectors } from '../../store/reducers';
 
 import { MoviesActions } from '../../store/actions';
 
 import styles from './styles';
-
-const imageURL = 'https://image.tmdb.org/t/p/w500';
 
 const Movies = ({ topRated, loadTopRated }) => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -58,7 +58,7 @@ const Movies = ({ topRated, loadTopRated }) => {
             <TouchableOpacity onPress={() => {}}>
               <Image
                 style={styles.poster}
-                source={{ uri: `${imageURL}${item.poster_path}` }}
+                source={{ uri: `${constants.imageURL}${item.poster_path}` }}
               />
             </TouchableOpacity>
           )}

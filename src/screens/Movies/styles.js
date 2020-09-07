@@ -23,16 +23,15 @@ const styles = StyleSheet.create({
   },
   flatListContainer: {
     marginHorizontal: '2%',
-    paddingBottom: '20%',
+    paddingBottom: '12%',
   },
   poster: {
-    marginStart: '5%',
-    overflow: 'visible',
-    width: widthPercentageToDP(28),
-    height: heightPercentageToDP(21),
+    marginStart: '2%',
+    width: widthPercentageToDP(30),
+    height: heightPercentageToDP(23),
   },
   itemSeparator: {
-    height: '1%',
+    height: '0.5%',
   },
 });
 

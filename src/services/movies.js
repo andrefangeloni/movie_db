@@ -6,3 +6,11 @@ export const fetchMoviesTopRated = async () => {
 
   return data;
 };
+
+export const fetchMovieSearched = async (query) => {
+  const { data } = await api.get(
+    `/search/movie?api_key=${API_KEY}&query=${query}`,
+  );
+
+  return data;
+};
