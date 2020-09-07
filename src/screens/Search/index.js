@@ -15,7 +15,8 @@ import { connect } from 'react-redux';
 
 import Feather from 'react-native-vector-icons/Feather';
 
-import posterNotFound from '../../assets/404-not-found.jpg';
+import noMovies from '../../assets/no-movies.png';
+import posterNotFound from '../../assets/poster-not-found.jpg';
 
 import constants from '../../data/constants';
 
@@ -25,7 +26,12 @@ import { MoviesActions } from '../../store/actions';
 
 import styles from './styles';
 
-const Search = ({ searchedMovie, searchMovie }) => {
+const Search = ({
+  navigation,
+  searchMovie,
+  searchedMovie,
+  setSelectedMovie,
+}) => {
   const [search, setSearch] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -40,6 +46,11 @@ const Search = ({ searchedMovie, searchMovie }) => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSelectedMovie = (movie) => {
+    setSelectedMovie(movie);
+    navigation.navigate('Details');
   };
 
   return (
@@ -79,7 +90,7 @@ const Search = ({ searchedMovie, searchMovie }) => {
           keyExtractor={(item) => String(item.id)}
           ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => handleSelectedMovie(item)}>
               {item.poster_path ? (
                 <Image
                   style={styles.poster}
@@ -93,8 +104,12 @@ const Search = ({ searchedMovie, searchMovie }) => {
         />
       ) : (
         !isLoading && (
-          <View style={styles.loadingContainer}>
-            <Text style={styles.noContent}>Search Movie</Text>
+          <View style={styles.noContentContainer}>
+            <Image
+              resizeMode="contain"
+              style={styles.noContentImage}
+              source={noMovies}
+            />
           </View>
         )
       )}
@@ -108,6 +123,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   searchMovie: (query) => dispatch(MoviesActions.getMovieSearched(query)),
+  setSelectedMovie: (selectedMovie) =>
+    dispatch(MoviesActions.setSelectedMovie(selectedMovie)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

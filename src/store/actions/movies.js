@@ -1,5 +1,6 @@
 import { MoviesServices } from '../../services';
 
+export const SET_SELECTED_MOVIE = 'SET_SELECTED_MOVIE:movies';
 export const GET_MOVIE_SEARCHED = 'GET_MOVIE_SEARCHED:movies';
 export const GET_MOVIES_TOP_RATED = 'GET_MOVIES_TOP_RATED:movies';
 
@@ -30,5 +31,11 @@ export const getMovieSearched = (query) => {
     } catch (err) {
       throw err;
     }
+  };
+};
+
+export const setSelectedMovie = (selectedMovie) => {
+  return async (dispatch) => {
+    dispatch({ type: SET_SELECTED_MOVIE, payload: selectedMovie });
   };
 };

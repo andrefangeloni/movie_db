@@ -3,6 +3,7 @@ import { MoviesActions } from '../actions';
 const initialState = {
   topRated: {},
   searchedMovie: {},
+  selectedMovie: {},
 };
 
 export default function movies(state = initialState, action) {
@@ -17,6 +18,11 @@ export default function movies(state = initialState, action) {
         ...state,
         searchedMovie: action.payload,
       };
+    case MoviesActions.SET_SELECTED_MOVIE:
+      return {
+        ...state,
+        selectedMovie: action.payload,
+      };
     default:
       return state;
   }
@@ -25,3 +31,5 @@ export default function movies(state = initialState, action) {
 export const getTopRated = (state) => state.movies.topRated;
 
 export const getSearchedMovie = (state) => state.movies.searchedMovie;
+
+export const getSelectedMovie = (state) => state.movies.selectedMovie;

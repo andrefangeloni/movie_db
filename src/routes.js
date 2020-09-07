@@ -1,6 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -9,7 +10,24 @@ import Movies from './screens/Movies';
 import Cart from './screens/Cart';
 import Search from './screens/Search';
 
+import Details from './screens/Details';
+
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const MoviesStack = () => (
+  <Stack.Navigator headerMode="none">
+    <Stack.Screen name="Movies" component={Movies} />
+    <Stack.Screen name="Details" component={Details} />
+  </Stack.Navigator>
+);
+
+const SearchStack = () => (
+  <Stack.Navigator headerMode="none">
+    <Stack.Screen name="Search" component={Search} />
+    <Stack.Screen name="Details" component={Details} />
+  </Stack.Navigator>
+);
 
 const Routes = () => (
   <NavigationContainer>
@@ -25,7 +43,7 @@ const Routes = () => (
       }}>
       <Tab.Screen
         name="Movies"
-        component={Movies}
+        component={MoviesStack}
         options={{
           tabBarIcon: ({ focused, color }) => (
             <MaterialCommIcon
@@ -38,7 +56,7 @@ const Routes = () => (
       />
       <Tab.Screen
         name="Search"
-        component={Search}
+        component={SearchStack}
         options={{
           tabBarIcon: ({ focused, color }) => (
             <MaterialCommIcon

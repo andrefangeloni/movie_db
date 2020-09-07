@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
+import posterNotFound from '../../assets/poster-not-found.jpg';
+
 import constants from '../../data/constants';
 
 import { MoviesSelelectors } from '../../store/reducers';
@@ -19,7 +21,7 @@ import { MoviesActions } from '../../store/actions';
 
 import styles from './styles';
 
-const Movies = ({ topRated, loadTopRated }) => {
+const Movies = ({ navigation, topRated, loadTopRated, setSelectedMovie }) => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
@@ -36,6 +38,11 @@ const Movies = ({ topRated, loadTopRated }) => {
       setIsLoading(false);
     }
   }, [loadTopRated]);
+
+  const handleSelectedMovie = (movie) => {
+    setSelectedMovie(movie);
+    navigation.navigate('Details');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -55,11 +62,15 @@ const Movies = ({ topRated, loadTopRated }) => {
           keyExtractor={(item) => String(item.id)}
           ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => {}}>
-              <Image
-                style={styles.poster}
-                source={{ uri: `${constants.imageURL}${item.poster_path}` }}
-              />
+            <TouchableOpacity onPress={() => handleSelectedMovie(item)}>
+              {item.poster_path ? (
+                <Image
+                  style={styles.poster}
+                  source={{ uri: `${constants.imageURL}${item.poster_path}` }}
+                />
+              ) : (
+                <Image style={styles.poster} source={posterNotFound} />
+              )}
             </TouchableOpacity>
           )}
         />
@@ -74,6 +85,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loadTopRated: () => dispatch(MoviesActions.getMoviesTopRated()),
+  setSelectedMovie: (selectedMovie) =>
+    dispatch(MoviesActions.setSelectedMovie(selectedMovie)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Movies);

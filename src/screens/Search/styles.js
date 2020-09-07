@@ -48,10 +48,14 @@ const styles = StyleSheet.create({
   itemSeparator: {
     height: '0.5%',
   },
-  noContent: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    color: '#fff',
+  noContentContainer: {
+    flex: 1,
+    alignSelf: 'center',
+    width: '50%',
+  },
+  noContentImage: {
+    width: '100%',
+    height: '100%',
   },
 });
 
