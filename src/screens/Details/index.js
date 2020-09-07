@@ -10,6 +10,7 @@ import {
 import { connect } from 'react-redux';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import posterNotFound from '../../assets/poster-not-found.jpg';
 
@@ -34,7 +35,9 @@ const Details = ({ navigation, selectedMovie }) => {
           <Text style={styles.title}>{selectedMovie.title}</Text>
         </View>
 
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          contentContainerStyle={styles.flexGrow}
+          showsVerticalScrollIndicator={false}>
           <View style={styles.posterContainer}>
             {selectedMovie.poster_path ? (
               <Image
@@ -52,6 +55,27 @@ const Details = ({ navigation, selectedMovie }) => {
               />
             )}
           </View>
+
+          {selectedMovie.release_date.length > 0 && (
+            <Text style={styles.releaseText}>
+              {'Release: '}
+              <Text style={styles.fS16}>
+                {selectedMovie.release_date.substring(0, 4)}
+              </Text>
+            </Text>
+          )}
+
+          <Text style={styles.overviewText}>{selectedMovie.overview}</Text>
+
+          <TouchableOpacity style={styles.cartButton} onPress={() => {}}>
+            <Text style={styles.cartText}>ADD TO CART</Text>
+            <Icon
+              style={styles.cartIcon}
+              name="cart-outline"
+              size={20}
+              color="#fff"
+            />
+          </TouchableOpacity>
         </ScrollView>
       </View>
     </SafeAreaView>

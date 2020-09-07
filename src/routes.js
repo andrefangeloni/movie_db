@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Movies from './screens/Movies';
 import Cart from './screens/Cart';
@@ -46,7 +46,7 @@ const Routes = () => (
         component={MoviesStack}
         options={{
           tabBarIcon: ({ focused, color }) => (
-            <MaterialCommIcon
+            <Icon
               name={focused ? 'movie-open' : 'movie-open-outline'}
               size={18}
               color={color}
@@ -59,7 +59,7 @@ const Routes = () => (
         component={SearchStack}
         options={{
           tabBarIcon: ({ focused, color }) => (
-            <MaterialCommIcon
+            <Icon
               name={focused ? 'movie-search' : 'movie-search-outline'}
               size={18}
               color={color}
@@ -72,7 +72,7 @@ const Routes = () => (
         component={Cart}
         options={{
           tabBarIcon: ({ focused, color }) => (
-            <MaterialCommIcon
+            <Icon
               name={focused ? 'cart' : 'cart-outline'}
               size={18}
               color={color}
