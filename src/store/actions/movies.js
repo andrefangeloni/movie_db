@@ -42,12 +42,12 @@ export const setSelectedMovie = (selectedMovie) => {
   };
 };
 
-export const addMovieToCart = (moviesInCart) => {
+export const addMovieToCart = (addedMovie) => {
   return (dispatch, getState) => {
     const separatedMovies = MoviesSelelectors.getMoviesInCart(getState());
 
     const duplicateMovie = separatedMovies.find(
-      (movie) => movie.id === moviesInCart.id,
+      (movie) => movie.id === addedMovie.id,
     );
 
     if (duplicateMovie) {
@@ -56,8 +56,20 @@ export const addMovieToCart = (moviesInCart) => {
 
     dispatch({
       type: ADD_MOVIE_TO_CART,
-      payload: [...separatedMovies, moviesInCart],
+      payload: [...separatedMovies, addedMovie],
     });
+  };
+};
+
+export const removeMovieFromCart = (removedMovie) => {
+  return (dispatch, getState) => {
+    const separatedMovies = MoviesSelelectors.getMoviesInCart(getState());
+
+    const restMovies = separatedMovies.filter(
+      (movie) => movie.id !== removedMovie.id,
+    );
+
+    dispatch({ type: ADD_MOVIE_TO_CART, payload: restMovies });
   };
 };
 

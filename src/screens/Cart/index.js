@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Image,
+  Alert,
   FlatList,
   SafeAreaView,
   TouchableOpacity,
@@ -23,14 +24,28 @@ import { MoviesActions } from '../../store/actions';
 
 import styles from './styles';
 
-const Cart = ({ navigation, moviesInCart, endShopping }) => {
+const Cart = ({ navigation, moviesInCart, removeMovie, endShopping }) => {
   const onPayMovies = () => {
     endShopping();
     navigation.navigate('Movies');
   };
 
+  const onRemoveMovie = (movie) => {
+    Alert.alert('Warning', 'Are you sure?', [
+      {
+        text: 'Yes',
+        onPress: () => removeMovie(movie),
+      },
+      {
+        text: 'No',
+        onPress: () => {},
+      },
+    ]);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
+      {console.log(moviesInCart)}
       <Text style={styles.title}>Cart</Text>
 
       {moviesInCart.length > 0 ? (
@@ -54,7 +69,9 @@ const Cart = ({ navigation, moviesInCart, endShopping }) => {
                 <Text style={styles.movieTitle}>{item.title}</Text>
               </View>
 
-              <TouchableOpacity style={styles.deleteButton} onPress={() => {}}>
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => onRemoveMovie(item)}>
                 <Icon name="delete" size={30} color="#a30000" />
               </TouchableOpacity>
             </View>
@@ -95,6 +112,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   endShopping: (movies) => dispatch(MoviesActions.endShopping(movies)),
+  removeMovie: (movie) => dispatch(MoviesActions.removeMovieFromCart(movie)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
