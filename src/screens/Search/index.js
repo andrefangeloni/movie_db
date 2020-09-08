@@ -64,6 +64,7 @@ const Search = ({
           placeholderTextColor="#999"
           value={search}
           onChangeText={setSearch}
+          onSubmitEditing={() => onMovieSearch()}
         />
 
         <TouchableOpacity onPress={() => onMovieSearch()}>
