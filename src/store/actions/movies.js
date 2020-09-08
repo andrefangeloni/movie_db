@@ -9,9 +9,9 @@ export const GET_MOVIES_TOP_RATED = 'GET_MOVIES_TOP_RATED:movies';
 export const getMoviesTopRated = () => {
   return async (dispatch) => {
     try {
-      const topRated = await MoviesServices.fetchMoviesTopRated();
+      const { results } = await MoviesServices.fetchMoviesTopRated();
 
-      dispatch({ type: GET_MOVIES_TOP_RATED, payload: topRated });
+      dispatch({ type: GET_MOVIES_TOP_RATED, payload: results });
     } catch (err) {
       throw err;
     }
@@ -24,11 +24,11 @@ export const getMovieSearched = (query) => {
   return async (dispatch) => {
     try {
       if (formattedQuery && formattedQuery.length > 0) {
-        const searchedMovie = await MoviesServices.fetchMovieSearched(
+        const { results } = await MoviesServices.fetchMovieSearched(
           formattedQuery,
         );
 
-        dispatch({ type: GET_MOVIE_SEARCHED, payload: searchedMovie });
+        dispatch({ type: GET_MOVIE_SEARCHED, payload: results });
       }
     } catch (err) {
       throw err;

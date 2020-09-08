@@ -6,14 +6,13 @@ import {
   Alert,
   ScrollView,
   SafeAreaView,
-  TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import posterNotFound from '../../assets/poster-not-found.jpg';
+
+import Header from '../../components/Header';
+import ActionButton from '../../components/Buttons/ActionButton';
 
 import constants from '../../data/constants';
 
@@ -37,34 +36,26 @@ const Details = ({ navigation, selectedMovie, addMovieToCart }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
-        <View style={styles.row}>
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => navigation.goBack()}>
-            <AntDesign name="arrowleft" size={30} color="#fff" />
-          </TouchableOpacity>
-          <Text style={styles.title}>{selectedMovie.title}</Text>
-        </View>
+        <Header
+          text={selectedMovie.title}
+          onGoBack={() => navigation.goBack()}
+        />
 
         <ScrollView
           contentContainerStyle={styles.flexGrow}
           showsVerticalScrollIndicator={false}>
           <View style={styles.posterContainer}>
-            {selectedMovie.poster_path ? (
-              <Image
-                resizeMode="contain"
-                style={styles.poster}
-                source={{
-                  uri: `${constants.imageURL}${selectedMovie.poster_path}`,
-                }}
-              />
-            ) : (
-              <Image
-                resizeMode="contain"
-                style={styles.poster}
-                source={posterNotFound}
-              />
-            )}
+            <Image
+              resizeMode="contain"
+              style={styles.poster}
+              source={
+                selectedMovie.poster_path
+                  ? {
+                      uri: `${constants.imageURL}${selectedMovie.poster_path}`,
+                    }
+                  : posterNotFound
+              }
+            />
           </View>
 
           {selectedMovie.release_date.length > 0 && (
@@ -78,17 +69,11 @@ const Details = ({ navigation, selectedMovie, addMovieToCart }) => {
 
           <Text style={styles.overviewText}>{selectedMovie.overview}</Text>
 
-          <TouchableOpacity
-            style={styles.cartButton}
-            onPress={() => onAddMovieToCart()}>
-            <Text style={styles.cartText}>ADD TO CART</Text>
-            <Icon
-              style={styles.cartIcon}
-              name="cart-outline"
-              size={20}
-              color="#fff"
-            />
-          </TouchableOpacity>
+          <ActionButton
+            text="ADD TO CART"
+            onPress={() => onAddMovieToCart()}
+            cartIcon
+          />
         </ScrollView>
       </View>
     </SafeAreaView>

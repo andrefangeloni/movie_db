@@ -1,8 +1,8 @@
 import { MoviesActions } from '../actions';
 
 const initialState = {
-  topRated: {},
-  searchedMovie: {},
+  topRated: [],
+  searchedMovie: [],
   selectedMovie: {},
   moviesInCart: [],
 };

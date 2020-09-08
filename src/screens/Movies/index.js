@@ -56,21 +56,24 @@ const Movies = ({ navigation, topRated, loadTopRated, setSelectedMovie }) => {
         <FlatList
           numColumns={3}
           key={(item) => String(item.id)}
-          data={topRated && topRated.results}
+          data={topRated}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.flatListContainer}
           keyExtractor={(item) => String(item.id)}
           ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => handleSelectedMovie(item)}>
-              {item.poster_path ? (
-                <Image
-                  style={styles.poster}
-                  source={{ uri: `${constants.imageURL}${item.poster_path}` }}
-                />
-              ) : (
-                <Image style={styles.poster} source={posterNotFound} />
-              )}
+              <Image
+                resizeMode="contain"
+                style={styles.poster}
+                source={
+                  item.poster_path
+                    ? {
+                        uri: `${constants.imageURL}${item.poster_path}`,
+                      }
+                    : posterNotFound
+                }
+              />
             </TouchableOpacity>
           )}
         />

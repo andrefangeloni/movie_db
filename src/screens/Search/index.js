@@ -78,28 +78,28 @@ const Search = ({
         </View>
       )}
 
-      {!isLoading &&
-      searchedMovie &&
-      searchedMovie.results &&
-      searchedMovie.results.length > 0 ? (
+      {!isLoading && searchedMovie.length > 0 ? (
         <FlatList
           numColumns={3}
           key={(item) => String(item.id)}
-          data={searchedMovie.results}
+          data={searchedMovie}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.flatListContainer}
           keyExtractor={(item) => String(item.id)}
           ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => handleSelectedMovie(item)}>
-              {item.poster_path ? (
-                <Image
-                  style={styles.poster}
-                  source={{ uri: `${constants.imageURL}${item.poster_path}` }}
-                />
-              ) : (
-                <Image style={styles.poster} source={posterNotFound} />
-              )}
+              <Image
+                resizeMode="contain"
+                style={styles.poster}
+                source={
+                  item.poster_path
+                    ? {
+                        uri: `${constants.imageURL}${item.poster_path}`,
+                      }
+                    : posterNotFound
+                }
+              />
             </TouchableOpacity>
           )}
         />

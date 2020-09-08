@@ -10,23 +10,6 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: '5%',
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  backButton: {
-    position: 'absolute',
-    left: 0,
-  },
-  title: {
-    width: '80%',
-    marginStart: '3%',
-    marginBottom: '5%',
-    fontSize: 26,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    color: '#fff',
-  },
   flexGrow: {
     flexGrow: 1,
   },
@@ -55,26 +38,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'justify',
     color: '#fff',
-  },
-  cartButton: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: '3%',
-    paddingHorizontal: '5%',
-    borderWidth: 1,
-    borderRadius: 20,
-    borderColor: '#076adb',
-    backgroundColor: '#076adb',
-  },
-  cartText: {
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  cartIcon: {
-    position: 'absolute',
-    right: '5%',
   },
 });
 
