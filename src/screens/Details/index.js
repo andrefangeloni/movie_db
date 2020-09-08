@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Image,
+  Alert,
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
@@ -22,7 +23,17 @@ import { MoviesActions } from '../../store/actions';
 
 import styles from './styles';
 
-const Details = ({ navigation, selectedMovie }) => {
+const Details = ({ navigation, selectedMovie, addMovieToCart }) => {
+  const onAddMovieToCart = () => {
+    try {
+      addMovieToCart(selectedMovie);
+      navigation.goBack();
+      navigation.navigate('Cart');
+    } catch (err) {
+      Alert.alert(err.message);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -59,7 +70,7 @@ const Details = ({ navigation, selectedMovie }) => {
           {selectedMovie.release_date.length > 0 && (
             <Text style={styles.releaseText}>
               {'Release: '}
-              <Text style={styles.fS16}>
+              <Text style={styles.fS18}>
                 {selectedMovie.release_date.substring(0, 4)}
               </Text>
             </Text>
@@ -67,7 +78,9 @@ const Details = ({ navigation, selectedMovie }) => {
 
           <Text style={styles.overviewText}>{selectedMovie.overview}</Text>
 
-          <TouchableOpacity style={styles.cartButton} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.cartButton}
+            onPress={() => onAddMovieToCart()}>
             <Text style={styles.cartText}>ADD TO CART</Text>
             <Icon
               style={styles.cartIcon}
@@ -88,6 +101,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   searchMovie: (query) => dispatch(MoviesActions.getMovieSearched(query)),
+  addMovieToCart: (movie) => dispatch(MoviesActions.addMovieToCart(movie)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Details);

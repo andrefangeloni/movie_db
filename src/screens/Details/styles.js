@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
   },
-  fS16: {
-    fontSize: 16,
+  fS18: {
+    fontSize: 18,
   },
   overviewText: {
     flex: 1,

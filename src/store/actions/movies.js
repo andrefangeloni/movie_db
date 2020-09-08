@@ -1,5 +1,7 @@
 import { MoviesServices } from '../../services';
+import { MoviesSelelectors } from '../../store/reducers';
 
+export const ADD_MOVIE_TO_CART = 'ADD_MOVIE_TO_CART:movies';
 export const SET_SELECTED_MOVIE = 'SET_SELECTED_MOVIE:movies';
 export const GET_MOVIE_SEARCHED = 'GET_MOVIE_SEARCHED:movies';
 export const GET_MOVIES_TOP_RATED = 'GET_MOVIES_TOP_RATED:movies';
@@ -35,7 +37,32 @@ export const getMovieSearched = (query) => {
 };
 
 export const setSelectedMovie = (selectedMovie) => {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch({ type: SET_SELECTED_MOVIE, payload: selectedMovie });
+  };
+};
+
+export const addMovieToCart = (moviesInCart) => {
+  return (dispatch, getState) => {
+    const separatedMovies = MoviesSelelectors.getMoviesInCart(getState());
+
+    const duplicateMovie = separatedMovies.find(
+      (movie) => movie.id === moviesInCart.id,
+    );
+
+    if (duplicateMovie) {
+      throw new Error('Movie already added!');
+    }
+
+    dispatch({
+      type: ADD_MOVIE_TO_CART,
+      payload: [...separatedMovies, moviesInCart],
+    });
+  };
+};
+
+export const endShopping = () => {
+  return (dispatch) => {
+    dispatch({ type: ADD_MOVIE_TO_CART, payload: [] });
   };
 };

@@ -4,6 +4,7 @@ const initialState = {
   topRated: {},
   searchedMovie: {},
   selectedMovie: {},
+  moviesInCart: [],
 };
 
 export default function movies(state = initialState, action) {
@@ -23,6 +24,11 @@ export default function movies(state = initialState, action) {
         ...state,
         selectedMovie: action.payload,
       };
+    case MoviesActions.ADD_MOVIE_TO_CART:
+      return {
+        ...state,
+        moviesInCart: action.payload,
+      };
     default:
       return state;
   }
@@ -33,3 +39,5 @@ export const getTopRated = (state) => state.movies.topRated;
 export const getSearchedMovie = (state) => state.movies.searchedMovie;
 
 export const getSelectedMovie = (state) => state.movies.selectedMovie;
+
+export const getMoviesInCart = (state) => state.movies.moviesInCart;
